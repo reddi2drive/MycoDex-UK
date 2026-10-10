@@ -77,7 +77,8 @@
       <div id="cloudNotConfigured"><p>Cloud sync is not connected yet. Follow the setup instructions in the repository README and add your public Supabase URL and publishable key to <code>cloud-config.js</code>.</p></div>
       <form id="cloudLoginForm" class="cloud-login" hidden>
         <label>Email address <input type="email" id="cloudEmailInput" autocomplete="email" placeholder="you@example.com" required></label>
-        <button id="cloudSendLink" class="primary-button" type="submit">Send secure sign-in link</button>
+        <label>Account password <input type="password" id="cloudPasswordInput" autocomplete="current-password" required></label>
+        <button id="cloudSignInButton" class="primary-button" type="submit">Sign in with password</button>
       </form>
       <div id="cloudConnected" class="cloud-connected" hidden>
         <p>Signed in: <strong id="cloudEmailLabel"></strong></p>
@@ -104,7 +105,7 @@
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script defer src="cloud-config.js?v=3"></script>
-  <script defer src="cloud.js?v=3"></script>
-  <script defer src="app.js?v=4"></script>
+  <script defer src="cloud.js?v=4"></script>
+  <script defer src="app.js?v=5"></script>
 </body>
 </html>
