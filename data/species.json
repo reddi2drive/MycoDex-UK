@@ -1,0 +1,534 @@
+[
+  {
+    "id": "agaricus-arvensis",
+    "commonName": "Horse Mushroom",
+    "scientificName": "Agaricus arvensis",
+    "family": "Agaricaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "agaricus-campestris",
+    "commonName": "Field Mushroom",
+    "scientificName": "Agaricus campestris",
+    "family": "Agaricaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "agaricus-xanthodermus",
+    "commonName": "Yellow Stainer",
+    "scientificName": "Agaricus xanthodermus",
+    "family": "Agaricaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "aleuria-aurantia",
+    "commonName": "Orange Peel Fungus",
+    "scientificName": "Aleuria aurantia",
+    "family": "Pyronemataceae",
+    "group": "Cup & morel fungi"
+  },
+  {
+    "id": "amanita-citrina",
+    "commonName": "False Death Cap",
+    "scientificName": "Amanita citrina",
+    "family": "Amanitaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "amanita-fulva",
+    "commonName": "Tawny Grisette",
+    "scientificName": "Amanita fulva",
+    "family": "Amanitaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "amanita-muscaria",
+    "commonName": "Fly Agaric",
+    "scientificName": "Amanita muscaria",
+    "family": "Amanitaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "amanita-pantherina",
+    "commonName": "Panthercap",
+    "scientificName": "Amanita pantherina",
+    "family": "Amanitaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "amanita-phalloides",
+    "commonName": "Death Cap",
+    "scientificName": "Amanita phalloides",
+    "family": "Amanitaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "amanita-rubescens",
+    "commonName": "The Blusher",
+    "scientificName": "Amanita rubescens",
+    "family": "Amanitaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "amanita-virosa",
+    "commonName": "Destroying Angel",
+    "scientificName": "Amanita virosa",
+    "family": "Amanitaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "apioperdon-pyriforme",
+    "commonName": "Pear-shaped Puffball",
+    "scientificName": "Apioperdon pyriforme",
+    "family": "Agaricaceae",
+    "group": "Puffballs & earthstars"
+  },
+  {
+    "id": "armillaria-mellea",
+    "commonName": "Honey Fungus",
+    "scientificName": "Armillaria mellea",
+    "family": "Physalacriaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "astraeus-hygrometricus",
+    "commonName": "Barometer Earthstar",
+    "scientificName": "Astraeus hygrometricus",
+    "family": "Diplocystaceae",
+    "group": "Puffballs & earthstars"
+  },
+  {
+    "id": "auricularia-auricula-judae",
+    "commonName": "Jelly Ear",
+    "scientificName": "Auricularia auricula-judae",
+    "family": "Auriculariaceae",
+    "group": "Coral & jelly fungi"
+  },
+  {
+    "id": "boletus-edulis",
+    "commonName": "Cep",
+    "scientificName": "Boletus edulis",
+    "family": "Boletaceae",
+    "group": "Boletes"
+  },
+  {
+    "id": "calvatia-gigantea",
+    "commonName": "Giant Puffball",
+    "scientificName": "Calvatia gigantea",
+    "family": "Agaricaceae",
+    "group": "Puffballs & earthstars"
+  },
+  {
+    "id": "cerioporus-squamosus",
+    "commonName": "Dryad's Saddle",
+    "scientificName": "Cerioporus squamosus",
+    "family": "Polyporaceae",
+    "group": "Brackets & polypores"
+  },
+  {
+    "id": "chalciporus-piperatus",
+    "commonName": "Peppery Bolete",
+    "scientificName": "Chalciporus piperatus",
+    "family": "Boletaceae",
+    "group": "Boletes"
+  },
+  {
+    "id": "chlorociboria-aeruginascens",
+    "commonName": "Green Elf Cup",
+    "scientificName": "Chlorociboria aeruginascens",
+    "family": "Chlorociboriaceae",
+    "group": "Cup & morel fungi"
+  },
+  {
+    "id": "chlorophyllum-rhacodes",
+    "commonName": "Shaggy Parasol",
+    "scientificName": "Chlorophyllum rhacodes",
+    "family": "Agaricaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "clathrus-archeri",
+    "commonName": "Devil's Fingers",
+    "scientificName": "Clathrus archeri",
+    "family": "Phallaceae",
+    "group": "Stinkhorns"
+  },
+  {
+    "id": "clitocybe-nebularis",
+    "commonName": "Clouded Funnel",
+    "scientificName": "Clitocybe nebularis",
+    "family": "Clitocybaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "coprinellus-disseminatus",
+    "commonName": "Fairy Inkcap",
+    "scientificName": "Coprinellus disseminatus",
+    "family": "Psathyrellaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "coprinellus-micaceus",
+    "commonName": "Glistening Inkcap",
+    "scientificName": "Coprinellus micaceus",
+    "family": "Psathyrellaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "coprinopsis-atramentaria",
+    "commonName": "Common Inkcap",
+    "scientificName": "Coprinopsis atramentaria",
+    "family": "Psathyrellaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "coprinopsis-picacea",
+    "commonName": "Magpie Inkcap",
+    "scientificName": "Coprinopsis picacea",
+    "family": "Psathyrellaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "coprinus-comatus",
+    "commonName": "Shaggy Inkcap",
+    "scientificName": "Coprinus comatus",
+    "family": "Agaricaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "cortinarius-violaceus",
+    "commonName": "Violet Webcap",
+    "scientificName": "Cortinarius violaceus",
+    "family": "Cortinariaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "cuphophyllus-pratensis",
+    "commonName": "Meadow Waxcap",
+    "scientificName": "Cuphophyllus pratensis",
+    "family": "Hygrophoraceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "exidia-glandulosa",
+    "commonName": "Witches' Butter",
+    "scientificName": "Exidia glandulosa",
+    "family": "Auriculariaceae",
+    "group": "Coral & jelly fungi"
+  },
+  {
+    "id": "fistulina-hepatica",
+    "commonName": "Beefsteak Fungus",
+    "scientificName": "Fistulina hepatica",
+    "family": "Fistulinaceae",
+    "group": "Brackets & polypores"
+  },
+  {
+    "id": "flammulina-velutipes",
+    "commonName": "Velvet Shank",
+    "scientificName": "Flammulina velutipes",
+    "family": "Physalacriaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "fomes-fomentarius",
+    "commonName": "Hoof Fungus",
+    "scientificName": "Fomes fomentarius",
+    "family": "Polyporaceae",
+    "group": "Brackets & polypores"
+  },
+  {
+    "id": "fomitopsis-betulina",
+    "commonName": "Birch Polypore",
+    "scientificName": "Fomitopsis betulina",
+    "family": "Fomitopsidaceae",
+    "group": "Brackets & polypores"
+  },
+  {
+    "id": "ganoderma-applanatum",
+    "commonName": "Artist's Bracket",
+    "scientificName": "Ganoderma applanatum",
+    "family": "Ganodermataceae",
+    "group": "Brackets & polypores"
+  },
+  {
+    "id": "geastrum-triplex",
+    "commonName": "Collared Earthstar",
+    "scientificName": "Geastrum triplex",
+    "family": "Geastraceae",
+    "group": "Puffballs & earthstars"
+  },
+  {
+    "id": "helvella-lacunosa",
+    "commonName": "Elfin Saddle",
+    "scientificName": "Helvella lacunosa",
+    "family": "Helvellaceae",
+    "group": "Cup & morel fungi"
+  },
+  {
+    "id": "hericium-erinaceus",
+    "commonName": "Lion's Mane",
+    "scientificName": "Hericium erinaceus",
+    "family": "Hericiaceae",
+    "group": "Coral & jelly fungi"
+  },
+  {
+    "id": "hydnum-repandum",
+    "commonName": "Wood Hedgehog",
+    "scientificName": "Hydnum repandum",
+    "family": "Hydnaceae",
+    "group": "Coral & jelly fungi"
+  },
+  {
+    "id": "hygrocybe-chlorophana",
+    "commonName": "Golden Waxcap",
+    "scientificName": "Hygrocybe chlorophana",
+    "family": "Hygrophoraceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "hygrocybe-coccinea",
+    "commonName": "Scarlet Waxcap",
+    "scientificName": "Hygrocybe coccinea",
+    "family": "Hygrophoraceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "hygrocybe-conica",
+    "commonName": "Blackening Waxcap",
+    "scientificName": "Hygrocybe conica",
+    "family": "Hygrophoraceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "hypholoma-fasciculare",
+    "commonName": "Sulphur Tuft",
+    "scientificName": "Hypholoma fasciculare",
+    "family": "Strophariaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "imleria-badia",
+    "commonName": "Bay Bolete",
+    "scientificName": "Imleria badia",
+    "family": "Boletaceae",
+    "group": "Boletes"
+  },
+  {
+    "id": "kuehneromyces-mutabilis",
+    "commonName": "Sheathed Woodtuft",
+    "scientificName": "Kuehneromyces mutabilis",
+    "family": "Strophariaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "laccaria-amethystina",
+    "commonName": "Amethyst Deceiver",
+    "scientificName": "Laccaria amethystina",
+    "family": "Hydnangiaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "laccaria-laccata",
+    "commonName": "The Deceiver",
+    "scientificName": "Laccaria laccata",
+    "family": "Hydnangiaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "lactarius-deliciosus",
+    "commonName": "Saffron Milkcap",
+    "scientificName": "Lactarius deliciosus",
+    "family": "Russulaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "lactarius-torminosus",
+    "commonName": "Woolly Milkcap",
+    "scientificName": "Lactarius torminosus",
+    "family": "Russulaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "lactarius-turpis",
+    "commonName": "Ugly Milkcap",
+    "scientificName": "Lactarius turpis",
+    "family": "Russulaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "laetiporus-sulphureus",
+    "commonName": "Chicken of the Woods",
+    "scientificName": "Laetiporus sulphureus",
+    "family": "Laetiporaceae",
+    "group": "Brackets & polypores"
+  },
+  {
+    "id": "leccinum-scabrum",
+    "commonName": "Brown Birch Bolete",
+    "scientificName": "Leccinum scabrum",
+    "family": "Boletaceae",
+    "group": "Boletes"
+  },
+  {
+    "id": "leccinum-versipelle",
+    "commonName": "Orange Birch Bolete",
+    "scientificName": "Leccinum versipelle",
+    "family": "Boletaceae",
+    "group": "Boletes"
+  },
+  {
+    "id": "lepista-nuda",
+    "commonName": "Wood Blewit",
+    "scientificName": "Lepista nuda",
+    "family": "Tricholomataceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "lycoperdon-perlatum",
+    "commonName": "Common Puffball",
+    "scientificName": "Lycoperdon perlatum",
+    "family": "Agaricaceae",
+    "group": "Puffballs & earthstars"
+  },
+  {
+    "id": "macrolepiota-procera",
+    "commonName": "Parasol Mushroom",
+    "scientificName": "Macrolepiota procera",
+    "family": "Agaricaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "morchella-esculenta",
+    "commonName": "Common Morel",
+    "scientificName": "Morchella esculenta",
+    "family": "Morchellaceae",
+    "group": "Cup & morel fungi"
+  },
+  {
+    "id": "mucidula-mucida",
+    "commonName": "Porcelain Fungus",
+    "scientificName": "Mucidula mucida",
+    "family": "Physalacriaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "mutinus-caninus",
+    "commonName": "Dog Stinkhorn",
+    "scientificName": "Mutinus caninus",
+    "family": "Phallaceae",
+    "group": "Stinkhorns"
+  },
+  {
+    "id": "mycena-galericulata",
+    "commonName": "Common Bonnet",
+    "scientificName": "Mycena galericulata",
+    "family": "Mycenaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "mycena-haematopus",
+    "commonName": "Bleeding Fairy Helmet",
+    "scientificName": "Mycena haematopus",
+    "family": "Mycenaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "neoboletus-luridiformis",
+    "commonName": "Scarletina Bolete",
+    "scientificName": "Neoboletus luridiformis",
+    "family": "Boletaceae",
+    "group": "Boletes"
+  },
+  {
+    "id": "phallus-impudicus",
+    "commonName": "Stinkhorn",
+    "scientificName": "Phallus impudicus",
+    "family": "Phallaceae",
+    "group": "Stinkhorns"
+  },
+  {
+    "id": "pholiota-squarrosa",
+    "commonName": "Shaggy Scalycap",
+    "scientificName": "Pholiota squarrosa",
+    "family": "Strophariaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "pleurotus-ostreatus",
+    "commonName": "Oyster Mushroom",
+    "scientificName": "Pleurotus ostreatus",
+    "family": "Pleurotaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "russula-cyanoxantha",
+    "commonName": "Charcoal Burner",
+    "scientificName": "Russula cyanoxantha",
+    "family": "Russulaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "russula-emetica",
+    "commonName": "The Sickener",
+    "scientificName": "Russula emetica",
+    "family": "Russulaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "russula-ochroleuca",
+    "commonName": "Ochre Brittlegill",
+    "scientificName": "Russula ochroleuca",
+    "family": "Russulaceae",
+    "group": "Gilled mushrooms"
+  },
+  {
+    "id": "sarcoscypha-austriaca",
+    "commonName": "Scarlet Elf Cup",
+    "scientificName": "Sarcoscypha austriaca",
+    "family": "Sarcoscyphaceae",
+    "group": "Cup & morel fungi"
+  },
+  {
+    "id": "scleroderma-citrinum",
+    "commonName": "Earthball",
+    "scientificName": "Scleroderma citrinum",
+    "family": "Sclerodermataceae",
+    "group": "Puffballs & earthstars"
+  },
+  {
+    "id": "suillellus-luridus",
+    "commonName": "Lurid Bolete",
+    "scientificName": "Suillellus luridus",
+    "family": "Boletaceae",
+    "group": "Boletes"
+  },
+  {
+    "id": "trametes-versicolor",
+    "commonName": "Turkey Tail",
+    "scientificName": "Trametes versicolor",
+    "family": "Polyporaceae",
+    "group": "Brackets & polypores"
+  },
+  {
+    "id": "tremella-mesenterica",
+    "commonName": "Yellow Brain Fungus",
+    "scientificName": "Tremella mesenterica",
+    "family": "Tremellaceae",
+    "group": "Coral & jelly fungi"
+  },
+  {
+    "id": "xylaria-hypoxylon",
+    "commonName": "Candlesnuff Fungus",
+    "scientificName": "Xylaria hypoxylon",
+    "family": "Xylariaceae",
+    "group": "Cup & morel fungi"
+  },
+  {
+    "id": "xylaria-polymorpha",
+    "commonName": "Dead Man's Fingers",
+    "scientificName": "Xylaria polymorpha",
+    "family": "Xylariaceae",
+    "group": "Cup & morel fungi"
+  }
+]
