@@ -12,3 +12,11 @@
 .cloud-settings .settings-actions{display:flex;flex-wrap:wrap;gap:10px}
 @media(max-width:540px){.cloud-badge{font-size:10px;padding:6px 8px}}
 .cloud-settings [hidden]{display:none !important}
+/* Shared field collection */
+.mycodex-share-panel{margin-top:20px;padding:18px;border:1px solid rgba(169,219,141,.25);border-radius:14px;background:rgba(105,170,109,.06)}
+.mycodex-share-panel h4{margin:0 0 10px;font-size:17px;color:#e7f9df}
+.mycodex-share-panel .cloud-login{margin:15px 0}
+.mycodex-share-invites{padding:0;margin:12px 0;list-style:none}
+.mycodex-share-invites li{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.10);font-size:13px;color:#d0e8d4}
+.mycodex-share-invites li span{overflow-wrap:anywhere;flex:1}
+.mycodex-share-invites button{cursor:pointer}
