@@ -39,6 +39,29 @@ The starter JSON is intentionally a small example: it would be misleading to cla
 
 An additional historical reference is Kew's *Checklist of British and Irish Basidiomycota* archive: https://sftp.kew.org/pub/data-repositories/basidiochecklist/ (archive of a dataset updated through 2020, not a current complete UK taxonomic list). Verify licence terms before republishing substantial dataset content, and provide appropriate source credit. NBN records and photos may have **different licences**; do not copy other people's photos without permission.
 
+
+## Share one collection with Kerry (separate sign-ins)
+
+MycoDex supports **one shared collection** with **separate Supabase email logins**. Both participants can add finds, photographs, dates, places and notes. A collector does **not** get access to the other person's Supabase Dashboard or GitHub repository.
+
+**One-time database migration (required):**
+
+1. In the existing **MycoDex-UK** Supabase project, open **SQL Editor → New query**.
+2. Open `supabase-sharing.sql` in this repository, copy the **whole file** and **Run** it. Do **not** run it in Spelling Steps.
+3. Keep the existing Supabase Project URL and publishable key in `cloud-config.js`; do not add any secret/service-role keys.
+
+**Invite your co-collector:**
+
+1. Open MycoDex and sign in using your own email through **Data & backup → Cloud sync**. Wait for **Cloud up to date**.
+2. In the same settings screen, find **Collect together**.
+3. Enter Kerry's exact email address and press **Share this collection**.
+4. Kerry opens the MycoDex website on her own device and signs in using **her** email (the email you entered). Her first sign-in link proves she controls that email address.
+5. Kerry chooses **Sync now**, or waits for automatic synchronisation. Both users should now see the same collection; changes made while the app is open sync about once a minute, or sooner when saved.
+
+**Notes:** The invitation grants edit access. The owner can later remove it using **Remove**, preventing future cloud access; that cannot erase copies previously downloaded to Kerry's device. Local/browser storage is not a separate security boundary. Keep a backup until you have seen **Cloud up to date**, particularly if a device already holds an independent collection.
+
+**If sharing isn't available:** Run the migration file first, confirm both people used the **exact** invited email address, and use **Sync now**. If the app reports a local collection belonging to another account, export a backup before switching; do not wipe browser data as a troubleshooting shortcut.
+
 ## Storage and sync — important
 
 The starter records finds, imported species and compressed photographs in **IndexedDB in this browser on this device**. GitHub Pages cannot itself save private user photos or sync between your devices. Safari clearing website data or removing the app can erase this data. **Download backups regularly** and save them to iCloud Drive.
