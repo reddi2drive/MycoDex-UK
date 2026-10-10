@@ -1,3 +1,11 @@
+## Email-and-password login (no per-login email link)
+
+MycoDex supports a **single Supabase Auth account signed in on two devices**. On the existing signed-in device, go to **Data & backup → Cloud sync → Set or change your MycoDex password**, and save a unique password (12+ characters). Kerry can then sign in on her own device with the **same MycoDex account email and that MycoDex-specific password**, without receiving any email link for each login.
+
+Password login requires an **existing confirmed Supabase Auth account with a password set**. A first-time account confirmation may still be necessary; do not disable Supabase's email confirmation just to bypass ownership checks. If no device is signed in and the account has no password, the owner must recover access through an authorised method before setting one. A project administrator can also create/manage Auth users securely through trusted server-side Supabase administrative tooling; never put service-role credentials in GitHub or the browser.
+
+**Security:** Both people using one account have the same permissions, and edits cannot be attributed to the person who made them. They should only share a **unique MycoDex password**, not their actual email inbox or Supabase account password. Using separate Auth accounts with the `supabase-sharing.sql` invitation flow remains preferable for personal accountability. A successful database sync still needs testing on two real devices.
+
 # MycoDex UK 🍄
 
 A personal, mobile-friendly mushroom collection for the UK, inspired by the collecting mechanics of a Pokédex. **No API keys, build tools or hosting subscription required for the starter version.**
