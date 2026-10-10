@@ -83,15 +83,28 @@
         <p>Signed in: <strong id="cloudEmailLabel"></strong></p>
         <div class="settings-actions"><button class="secondary-button" id="cloudSyncNow" type="button">↻ Sync now</button><button class="secondary-button" id="cloudLogout" type="button">Sign out</button></div>
       </div>
+      <section id="sharePanel" class="mycodex-share-panel" hidden>
+        <h4>Collect together</h4>
+        <p id="cloudCollectionLabel" class="small-note"></p>
+        <form id="shareInviteForm" class="cloud-login" hidden>
+          <label>Invite someone to this collection by email
+            <input type="email" id="shareEmailInput" autocomplete="email" placeholder="Their email address" required>
+          </label>
+          <button id="shareInviteButton" class="secondary-button" type="submit">Share this collection</button>
+        </form>
+        <ul id="shareInvites" class="mycodex-share-invites"></ul>
+        <p id="shareMessage" class="import-message" aria-live="polite"></p>
+        <p class="small-note">Each person signs in with their own email. Invited members can add, edit and remove finds and photographs in this shared collection. They don't get access to your Supabase dashboard or GitHub repository.</p>
+      </section>
       <p id="cloudMessage" class="import-message" aria-live="polite"></p>
     </div>
     <div class="settings-section"><h3>Import a UK species catalogue</h3><p>Import an NBN Atlas species CSV or a compatible CSV with <code>scientificName</code>, <code>commonName</code> and optional <code>family</code>, <code>kingdom</code>, <code>rank</code> columns. Names are added to the built-in starter collection; duplicate species are merged.</p><label class="choice"><input type="checkbox" id="basidioOnly"> Include Basidiomycota only (excludes morels and other ascomycetes)</label><label class="import-button">＋ Choose species CSV<input type="file" id="catalogueInput" accept=".csv,text/csv"></label><p id="importMessage" class="import-message" role="status"></p><button type="button" class="text-button" id="catalogueExport">Download current species JSON</button><p class="small-note">To publish your full catalogue to every device, replace <code>data/species.json</code> in GitHub with the exported JSON.</p></div>
     <div class="settings-section"><h3>Your collection backup</h3><p>Download a backup containing your finds, notes <strong>and compressed photos</strong>. Keep it somewhere safe. You can restore it on another iPhone, iPad or computer.</p><div class="settings-actions"><button type="button" class="secondary-button" id="exportButton">↓ Download backup</button><label class="import-button import-secondary">↑ Restore backup<input type="file" id="backupInput" accept=".json,application/json"></label></div><p id="backupMessage" class="import-message" role="status"></p></div>
-    <div class="settings-section settings-last"><h3>Important to know</h3><p>This starter app needs no account or paid database. GitHub Pages hosts the app, but it <strong>does not sync personal sightings between devices</strong>. For automatic iPhone ↔ iPad sync, add an authenticated cloud database and storage service in a later version.</p></div>
+    <div class="settings-section settings-last"><h3>Important to know</h3><p>When you're signed in, MycoDex synchronises your local discoveries to Supabase. Shared collections allow separate email accounts to contribute to the same finds and photographs. Offline changes sync when connectivity returns. Until the first successful cloud sync, keep a local backup of your discoveries.</p></div>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script defer src="cloud-config.js?v=2"></script>
   <script defer src="cloud.js?v=2"></script>
-  <script defer src="app.js?v=2"></script>
+  <script defer src="app.js?v=3"></script>
 </body>
 </html>
