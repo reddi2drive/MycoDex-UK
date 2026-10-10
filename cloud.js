@@ -13,7 +13,7 @@ window.MycoDexCloud = (() => {
     if (window.supabase?.createClient) return Promise.resolve();
     return new Promise((resolve,reject)=>{
       const script=document.createElement('script');
-      script.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+      script.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
       script.async=true;
       script.onload=()=>window.supabase?.createClient?resolve():reject(new Error('Cloud library could not load'));
       script.onerror=()=>reject(new Error('Cloud library unavailable. Check your connection.'));
@@ -26,7 +26,7 @@ window.MycoDexCloud = (() => {
     if (!initPromise) initPromise=(async()=>{
       await loadSDK();
       client=window.supabase.createClient(cfg.url.trim().replace(/\/$/,''),cfg.publishableKey.trim(),{
-        auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}
+        auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'implicit'}
       });
       client.auth.onAuthStateChange((_event,session)=>{
         const next=session?.user||null;
