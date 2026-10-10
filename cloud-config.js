@@ -3,5 +3,5 @@
 // Never put a service_role/secret key here: GitHub Pages is public.
 window.MYCODEX_SUPABASE = {
   url: 'https://ecezbhzxisjpgmhuwqtw.supabase.co',
-  publishableKey: ''
+  publishableKey: 'sb_publishable_fDQane89oche4i2JDYuXCA_IPwqFxMb'
 };
