@@ -67,3 +67,55 @@ Modern iOS Safari may be able to decode HEIC, but browser support varies; JPG an
 - References and validated species identification workflow.
 - Achievement badges, seasonal field journal, map of finds, location-aware recommendations.
 - Optional read-only reference photos obtained with correct licences and attribution.
+
+## Cloud sync setup (Supabase) — v1.1
+
+The app now has an **optional Supabase sync integration**. Without configuration it remains
+fully usable locally, with reliable **Save as found**, immediately refreshed counters,
+and backup/restore. Existing IndexedDB finds are preserved when cloud sync is enabled.
+
+**1. Create a separate Supabase project for MycoDex** (you can reuse your Supabase account).
+Open the project **SQL Editor**, paste all of [`supabase-setup.sql`](supabase-setup.sql),
+and run it. The SQL creates `mycodex_finds`, `mycodex_photos`, a **private** `mycodex-photos`
+Storage bucket, and per-user RLS access policies.
+
+**2. Configure Auth → URL Configuration.** Set the Site URL to your published address,
+`https://reddi2drive.github.io/MycoDex-UK/`, and add that exact URL under redirect URLs.
+In **Authentication → Providers → Email**, leave email sign-in / magic-link OTP enabled.
+The login sends a link to your email. Open it on the device you are signing in on.
+
+**3. Configure the public website.** In **Project Settings / Connect / API keys**
+find the **Project URL** (`https://<project-ref>.supabase.co`) and **publishable key**
+(`sb_publishable_…`) or legacy `anon` key. Edit `cloud-config.js` in GitHub:
+
+```js
+window.MYCODEX_SUPABASE = {
+  url: 'https://YOUR-PROJECT.supabase.co',
+  publishableKey: 'YOUR-SUPABASE-PUBLISHABLE-KEY'
+};
+```
+
+These two values are designed to be public: RLS protects access after login.
+**Never publish the service_role key, a secret API key, database password,
+or any administrator credentials.**
+
+**4. Visit MycoDex and open Data & backup → Cloud sync**. Sign in with the same email
+on both iPhone and iPad. The first sync imports existing finds and pictures from the
+current device. Later edits are stored locally first and automatically retried when
+connectivity returns. Cloud sync status appears at the top and in Data & backup.
+
+**5. Make a backup first.** Before configuring or changing accounts, use
+**Data & backup → Download backup** and save the JSON to iCloud Drive. Reusing
+one device with different email accounts isn't supported: MycoDex blocks an
+attempt to merge records belonging to a previously linked account.
+
+### Current sync behaviour
+
+- Found/unfound species, date, location, notes and photographs sync across signed-in devices.
+- Found/unfound and photo deletions are retained as tombstones to propagate removals.
+- Latest `updated_at` wins if the same species is edited on two devices.
+- Photos live in private Supabase Storage (not the public GitHub repository).
+- Saves and the dashboard work without Supabase connectivity; sync status states when
+  data has not yet reached the cloud.
+- This is **not** a verified production migration until you've run the SQL, filled the
+  public configuration, and checked a real iPhone ↔ iPad sync.
