@@ -82,6 +82,15 @@
       </form>
       <div id="cloudConnected" class="cloud-connected" hidden>
         <p>Signed in: <strong id="cloudEmailLabel"></strong></p>
+        <details class="password-setup">
+          <summary>Set or change your MycoDex password</summary>
+          <form id="cloudSetPasswordForm" class="cloud-login">
+            <label>New password <input type="password" id="cloudNewPasswordInput" autocomplete="new-password" minlength="12" required></label>
+            <label>Confirm password <input type="password" id="cloudConfirmPasswordInput" autocomplete="new-password" minlength="12" required></label>
+            <button type="submit" class="secondary-button" id="cloudSetPasswordButton">Save password</button>
+          </form>
+          <p id="cloudPasswordMessage" class="import-message" role="status"></p>
+        </details>
         <div class="settings-actions"><button class="secondary-button" id="cloudSyncNow" type="button">↻ Sync now</button><button class="secondary-button" id="cloudLogout" type="button">Sign out</button></div>
       </div>
       <section id="sharePanel" class="mycodex-share-panel" hidden>
