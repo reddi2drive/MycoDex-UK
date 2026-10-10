@@ -8,14 +8,14 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="assets/icon-180.png">
   <link rel="icon" type="image/png" href="assets/icon-192.png">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
   <title>MycoDex UK · Your mushroom collection</title>
 </head>
 <body>
   <div class="app-shell">
     <header class="site-header">
       <a href="./" class="brand" aria-label="MycoDex home"><span class="brand-emblem" aria-hidden="true">🍄</span><span><b>MYCO<span>DEX</span></b><small>UK FIELD COLLECTION</small></span></a>
-      <button class="small-button" id="settingsButton" type="button" aria-label="Collection settings">⚙ <span>Data &amp; backup</span></button>
+      <span class="cloud-badge" id="cloudBadge" aria-live="polite">Local only</span><button class="small-button" id="settingsButton" type="button" aria-label="Collection settings">⚙ <span>Data &amp; backup</span></button>
     </header>
 
     <main>
@@ -55,7 +55,7 @@
   </div>
 
   <dialog id="entryDialog" class="entry-dialog">
-    <form id="entryForm" method="dialog" class="entry-form">
+    <form id="entryForm" class="entry-form">
       <div class="modal-head"><div><span class="eyebrow">FIELD ENTRY</span><h2 id="entryTitle">Mushroom</h2><p id="entryScientific"></p></div><button type="button" class="icon-close" data-close="entryDialog" aria-label="Close">✕</button></div>
       <div class="modal-content"><div class="taxon-pill" id="entryFamily"></div>
         <div class="form-grid"><label>Date found <input type="date" id="entryDate"></label><label>Location or place <input type="text" id="entryLocation" placeholder="e.g. Arrow Valley Lake" maxlength="160"></label></div>
@@ -64,17 +64,34 @@
         <div class="modal-gallery" id="photoGallery"></div>
         <p class="local-hint">ⓘ Finds and photographs are saved on <strong>this device</strong>. Use Data &amp; backup to move them to another device.</p>
       </div>
-      <div class="modal-actions"><button class="secondary-button" id="unmarkButton" type="button" hidden>Unmark as found</button><button class="primary-button" id="saveEntryButton" type="submit">✓ Save as found</button></div>
+      <div class="modal-actions"><button class="secondary-button" id="unmarkButton" type="button" hidden>Unmark as found</button><button class="primary-button" id="saveEntryButton" type="button">✓ Save as found</button></div>
     </form>
   </dialog>
 
   <dialog id="settingsDialog" class="settings-dialog">
     <div class="modal-head"><div><span class="eyebrow">COLLECTION TOOLS</span><h2>Data &amp; backup</h2><p>Build your species list and protect your sightings.</p></div><button type="button" class="icon-close" data-close="settingsDialog" aria-label="Close">✕</button></div>
+    <div class="settings-section cloud-settings">
+      <h3>☁ Cloud sync (Supabase)</h3>
+      <p>Keep your mushroom discoveries and photographs in sync across your iPhone and iPad. Finds always save to this device first, even when you're offline.</p>
+      <p class="import-message" role="status"><strong id="cloudStatus">Checking cloud…</strong></p>
+      <div id="cloudNotConfigured"><p>Cloud sync is not connected yet. Follow the setup instructions in the repository README and add your public Supabase URL and publishable key to <code>cloud-config.js</code>.</p></div>
+      <form id="cloudLoginForm" class="cloud-login" hidden>
+        <label>Email address <input type="email" id="cloudEmailInput" autocomplete="email" placeholder="you@example.com" required></label>
+        <button id="cloudSendLink" class="primary-button" type="submit">Send secure sign-in link</button>
+      </form>
+      <div id="cloudConnected" class="cloud-connected" hidden>
+        <p>Signed in: <strong id="cloudEmailLabel"></strong></p>
+        <div class="settings-actions"><button class="secondary-button" id="cloudSyncNow" type="button">↻ Sync now</button><button class="secondary-button" id="cloudLogout" type="button">Sign out</button></div>
+      </div>
+      <p id="cloudMessage" class="import-message" aria-live="polite"></p>
+    </div>
     <div class="settings-section"><h3>Import a UK species catalogue</h3><p>Import an NBN Atlas species CSV or a compatible CSV with <code>scientificName</code>, <code>commonName</code> and optional <code>family</code>, <code>kingdom</code>, <code>rank</code> columns. Names are added to the built-in starter collection; duplicate species are merged.</p><label class="choice"><input type="checkbox" id="basidioOnly"> Include Basidiomycota only (excludes morels and other ascomycetes)</label><label class="import-button">＋ Choose species CSV<input type="file" id="catalogueInput" accept=".csv,text/csv"></label><p id="importMessage" class="import-message" role="status"></p><button type="button" class="text-button" id="catalogueExport">Download current species JSON</button><p class="small-note">To publish your full catalogue to every device, replace <code>data/species.json</code> in GitHub with the exported JSON.</p></div>
     <div class="settings-section"><h3>Your collection backup</h3><p>Download a backup containing your finds, notes <strong>and compressed photos</strong>. Keep it somewhere safe. You can restore it on another iPhone, iPad or computer.</p><div class="settings-actions"><button type="button" class="secondary-button" id="exportButton">↓ Download backup</button><label class="import-button import-secondary">↑ Restore backup<input type="file" id="backupInput" accept=".json,application/json"></label></div><p id="backupMessage" class="import-message" role="status"></p></div>
     <div class="settings-section settings-last"><h3>Important to know</h3><p>This starter app needs no account or paid database. GitHub Pages hosts the app, but it <strong>does not sync personal sightings between devices</strong>. For automatic iPhone ↔ iPad sync, add an authenticated cloud database and storage service in a later version.</p></div>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script defer src="app.js"></script>
+  <script defer src="cloud-config.js?v=2"></script>
+  <script defer src="cloud.js?v=2"></script>
+  <script defer src="app.js?v=2"></script>
 </body>
 </html>
