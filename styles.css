@@ -20,3 +20,9 @@
 .mycodex-share-invites li{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.10);font-size:13px;color:#d0e8d4}
 .mycodex-share-invites li span{overflow-wrap:anywhere;flex:1}
 .mycodex-share-invites button{cursor:pointer}
+
+/* One-time password setup for an already signed-in cloud account */
+.password-setup{margin:15px 0;padding:13px;border:1px solid rgba(255,255,255,.12);border-radius:10px}
+.password-setup summary{cursor:pointer;color:#d0f2c0;font-weight:650}
+.password-setup .cloud-login{margin-top:14px}
+.password-setup #cloudPasswordMessage{margin-top:12px;overflow-wrap:anywhere}
