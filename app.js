@@ -128,7 +128,14 @@
       const ownerId=details.ownerId;
       const previousOwner=localStorage.getItem(cloudOwnerKey);
       if(previousOwner && previousOwner!==ownerId){
-        throw new Error('This device has a local collection linked to another owner. Download a backup before switching collections; do not overwrite your discoveries.');
+        // A previously signed-in *empty* personal collection can switch to
+        // an invitation safely. Never silently merge someone else's finds.
+        const previousFinds=await getAll('finds');
+        const previousPhotos=await getAll('photos');
+        if(previousFinds.length||previousPhotos.length){
+          throw new Error('This device has a local collection linked to another owner. Download a backup before switching collections; do not overwrite your discoveries.');
+        }
+        localStorage.removeItem(cloudOwnerKey);
       }
       showCloudStatus('Syncing…');cloudMessage('Synchronising finds and photographs securely…');
       const remoteFinds=await fetchCloudRows('mycodex_finds',ownerId);
