@@ -84,7 +84,7 @@ window.MycoDexCloud = (() => {
   }
   async function signOut(){
     if(!client)return;
-    const {error}=await client.auth.signOut();
+    const {error}=await client.auth.signOut({scope:'local'});
     if(error)throw error;
     currentUser=null;
     onChange(null);
