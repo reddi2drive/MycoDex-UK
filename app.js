@@ -104,8 +104,11 @@
   }
   function cloudError(error){
     const details=String(error?.message||error||'Cloud sync failed');
-    showCloudStatus('Cloud sync needs attention');
-    cloudMessage(`Your discoveries are saved on this device. Cloud sync failed: ${details}`);
+    const networkFailure=/load failed|failed to fetch|networkerror|network request failed|network connection was lost/i.test(details);
+    showCloudStatus(networkFailure?'Network connection failed':'Cloud sync needs attention');
+    cloudMessage(networkFailure
+      ? `Your discoveries are still saved on this device. Could not reach Supabase while ${details}. Check that Safari can access the internet, then tap Sync now. If it continues, try Safari without a content blocker or VPN. Don't clear website data.`
+      : `Your discoveries are saved on this device. Cloud sync failed: ${details}`);
     console.error('MycoDex cloud:',error);
   }
   async function fetchCloudRows(table, ownerId){
@@ -123,6 +126,7 @@
     if(cloudSyncPromise){syncAgain=true;return cloudSyncPromise;}
     const user=cloud.user;
     if(!navigator.onLine){showCloudStatus('Saved locally · offline');return;}
+    let syncStage='checking shared collection access';
     cloudSyncPromise=(async()=>{
       const details=await reloadSharing();
       const ownerId=details.ownerId;
@@ -138,6 +142,7 @@
         localStorage.removeItem(cloudOwnerKey);
       }
       showCloudStatus('Syncing…');cloudMessage('Synchronising finds and photographs securely…');
+      syncStage='downloading discoveries';
       const remoteFinds=await fetchCloudRows('mycodex_finds',ownerId);
       const localFinds=await getAll('finds');
       const remoteFindMap=new Map(remoteFinds.map(f=>[f.species_id,f]));
@@ -156,12 +161,17 @@
           localUpdates.push({id:remote.species_id,date:remote.found_date||'',location:remote.location||'',notes:remote.notes||'',updatedAt:remote.updated_at,deletedAt:remote.deleted_at||null});
         }
       }
+      syncStage='uploading discoveries';
       for(let i=0;i<uploads.length;i+=100){
         const {error}=await cloud.client.from('mycodex_finds').upsert(uploads.slice(i,i+100),{onConflict:'user_id,species_id'});
         if(error)throw error;
       }
-      if(localUpdates.length)await putMany('finds',localUpdates);
+      if(localUpdates.length){
+        await putMany('finds',localUpdates);
+        await refresh(); // Show discovered species even if a later photo fails to load.
+      }
 
+      syncStage='loading photograph list';
       const remotePhotos=await fetchCloudRows('mycodex_photos',ownerId);
       const remotePhotoMap=new Map(remotePhotos.map(p=>[p.id,p]));
       const localPhotoMap=new Map((await getAll('photos')).map(p=>[p.id,p]));
@@ -172,6 +182,7 @@
         if(remote.deleted_at){
           incomingPhotos.push({id:remote.id,speciesId:remote.species_id,createdAt:remote.created_at,updatedAt:remote.updated_at,deletedAt:remote.deleted_at,name:local?.name||'photo',blob:local?.blob||null});
         } else {
+          syncStage='downloading photograph '+remote.id;
           const {data,error}=await cloud.client.storage.from('mycodex-photos').download(remote.storage_path);
           if(error)throw error;
           incomingPhotos.push({id:remote.id,speciesId:remote.species_id,createdAt:remote.created_at,updatedAt:remote.updated_at,deletedAt:null,name:local?.name||'Cloud photograph',blob:data});
@@ -180,6 +191,7 @@
       if(incomingPhotos.length)await putMany('photos',incomingPhotos);
       // Never overwrite newer remote changes with older cached local records.
       for(const local of localPhotoMap.values()){
+        syncStage='uploading photograph '+local.id;
         const remote=remotePhotoMap.get(local.id);
         if(remote && timestamp(local.updatedAt||local.createdAt)<=timestamp(remote.updated_at))continue;
         const path=`${ownerId}/${local.id}.jpg`;
@@ -191,6 +203,7 @@
         }
         const payload={id:local.id,user_id:ownerId,species_id:local.speciesId,storage_path:remote?.storage_path||path,
           created_at:local.createdAt||new Date().toISOString(),updated_at:local.updatedAt||local.createdAt||new Date().toISOString(),deleted_at:local.deletedAt||null};
+        syncStage='saving photograph details';
         const {error}=await cloud.client.from('mycodex_photos').upsert(payload,{onConflict:'id'});
         if(error)throw error;
         if(local.deletedAt && remote && !remote.deleted_at){
@@ -204,7 +217,7 @@
       cloudMessage(`Synced ${state.finds.size} found species and ${activePhotos().length} photographs. Everyone invited to this collection can access the same discoveries.`);
     })();
     try{await cloudSyncPromise;}
-    catch(error){cloudError(error);}
+    catch(error){cloudError(new Error(syncStage+': '+String(error?.message||error)));}
     finally{
       cloudSyncPromise=null;
       if(syncAgain){syncAgain=false;scheduleCloudSync();}
@@ -218,7 +231,7 @@
       cloudUI();
       if(user)scheduleCloudSync();
     });if(cloud.user)scheduleCloudSync();}
-    catch(error){cloudError(error);}
+    catch(error){cloudError(new Error('connecting or restoring sign-in: '+String(error?.message||error)));}
   }
 
   function filteredSpecies(){
@@ -379,7 +392,7 @@
     $('#cloudLoginForm').addEventListener('submit',async e=>{
       e.preventDefault();const btn=$('#cloudSendLink');btn.disabled=true;
       try{await cloud.sendLink($('#cloudEmailInput').value.trim());cloudMessage('Check your email for the secure sign-in link. Open it on this device.');}
-      catch(error){cloudError(error);}finally{btn.disabled=false;}
+      catch(error){cloudError(new Error('sending sign-in email: '+String(error?.message||error)));}finally{btn.disabled=false;}
     });
     $('#cloudLogout').addEventListener('click',async()=>{try{await cloud.signOut();cloudUI();cloudMessage('Signed out. Local discoveries remain on this device.');}catch(error){cloudError(error);}});
     $('#cloudSyncNow').addEventListener('click',()=>syncCloud());
