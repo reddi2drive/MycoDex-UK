@@ -39,6 +39,7 @@
   let cloudSyncPromise = null;
   let syncAgain = false;
   const cloudOwnerKey = 'mycodex-cloud-owner-v1';
+  let cloudOwnerId = null;
   const timestamp = value => Date.parse(value||'') || 0;
   const activePhotos = () => state.photos.filter(p=>!p.deletedAt);
   function cloudMessage(message){const el=$('#cloudMessage');if(el)el.textContent=message;}
@@ -49,8 +50,50 @@
     $('#cloudLoginForm').hidden=!configured||Boolean(user);
     $('#cloudConnected').hidden=!configured||!user;
     $('#cloudEmailLabel').textContent=user?.email||'';
+    $('#sharePanel').hidden=!configured||!user;
+    if(!user){
+      cloudOwnerId=null;
+      $('#shareInviteForm').hidden=true;
+      $('#shareInvites').innerHTML='';
+      $('#cloudCollectionLabel').textContent='';
+    }
     if(!configured)showCloudStatus('Local only');
     else if(!user)showCloudStatus('Sign in to sync');
+  }
+  // A shared collection still belongs to the original owner. Members log
+  // in independently and can see only collections explicitly shared to them.
+  async function getSharingDetails(user){
+    const {data,error}=await cloud.client
+      .from('mycodex_shares')
+      .select('owner_user_id,invited_email,created_at')
+      .order('created_at',{ascending:true});
+    if(error)throw new Error('Shared access is not configured yet. Run supabase-sharing.sql in your Supabase SQL Editor. '+error.message);
+    const shares=data||[];
+    const mine=shares.filter(item=>item.owner_user_id===user.id);
+    const invited=shares.filter(item=>item.invited_email===String(user.email||'').toLowerCase()&&item.owner_user_id!==user.id);
+    const ownerId=mine.length?user.id:invited.length?invited[0].owner_user_id:user.id;
+    return {ownerId,mine,sharing:ownerId!==user.id};
+  }
+  function renderSharing(details){
+    if(!cloud?.user)return;
+    const own=!details.sharing;
+    $('#sharePanel').hidden=false;
+    $('#shareInviteForm').hidden=!own;
+    $('#cloudCollectionLabel').textContent=own
+      ? 'This collection belongs to your account. Invite someone by email to collect together.'
+      : 'You are editing a collection shared with you. Finds and photos are visible to everyone with access.';
+    $('#shareInvites').innerHTML=own
+      ?(details.mine.length?details.mine.map(s=>
+          '<li><span>'+esc(s.invited_email)+'</span><button type="button" class="text-button" data-share-remove="'+esc(s.invited_email)+'">Remove</button></li>'
+        ).join(''):'<li>No one has been invited yet.</li>')
+      :'';
+  }
+  async function reloadSharing(){
+    const user=cloud?.user;if(!user)return;
+    const details=await getSharingDetails(user);
+    cloudOwnerId=details.ownerId;
+    renderSharing(details);
+    return details;
   }
   function scheduleCloudSync(){
     if(!cloud?.configured||!cloud.user)return;
@@ -65,10 +108,10 @@
     cloudMessage(`Your discoveries are saved on this device. Cloud sync failed: ${details}`);
     console.error('MycoDex cloud:',error);
   }
-  async function fetchCloudRows(table){
+  async function fetchCloudRows(table, ownerId){
     const rows=[];
     for(let offset=0;;offset+=500){
-      const {data,error}=await cloud.client.from(table).select('*').range(offset,offset+499);
+      const {data,error}=await cloud.client.from(table).select('*').eq('user_id',ownerId).order(table==='mycodex_finds'?'species_id':'id').range(offset,offset+499);
       if(error)throw error;
       rows.push(...(data||[]));
       if(!data||data.length<500)break;
@@ -81,12 +124,14 @@
     const user=cloud.user;
     if(!navigator.onLine){showCloudStatus('Saved locally · offline');return;}
     cloudSyncPromise=(async()=>{
+      const details=await reloadSharing();
+      const ownerId=details.ownerId;
       const previousOwner=localStorage.getItem(cloudOwnerKey);
-      if(previousOwner && previousOwner!==user.id){
-        throw new Error('This device has a collection linked to another cloud account. Export a backup before switching accounts.');
+      if(previousOwner && previousOwner!==ownerId){
+        throw new Error('This device has a local collection linked to another owner. Download a backup before switching collections; do not overwrite your discoveries.');
       }
       showCloudStatus('Syncing…');cloudMessage('Synchronising finds and photographs securely…');
-      const remoteFinds=await fetchCloudRows('mycodex_finds');
+      const remoteFinds=await fetchCloudRows('mycodex_finds',ownerId);
       const localFinds=await getAll('finds');
       const remoteFindMap=new Map(remoteFinds.map(f=>[f.species_id,f]));
       const localUpdates=[], uploads=[];
@@ -94,7 +139,7 @@
         const remote=remoteFindMap.get(local.id);
         if(remote && timestamp(remote.updated_at)>timestamp(local.updatedAt))continue;
         if(!remote || timestamp(local.updatedAt)>timestamp(remote.updated_at)){
-          uploads.push({user_id:user.id,species_id:local.id,found_date:local.date||null,location:local.location||'',notes:local.notes||'',updated_at:local.updatedAt||new Date(0).toISOString(),deleted_at:local.deletedAt||null});
+          uploads.push({user_id:ownerId,species_id:local.id,found_date:local.date||null,location:local.location||'',notes:local.notes||'',updated_at:local.updatedAt||new Date(0).toISOString(),deleted_at:local.deletedAt||null});
         }
       }
       const localFindMap=new Map(localFinds.map(x=>[x.id,x]));
@@ -110,7 +155,7 @@
       }
       if(localUpdates.length)await putMany('finds',localUpdates);
 
-      const remotePhotos=await fetchCloudRows('mycodex_photos');
+      const remotePhotos=await fetchCloudRows('mycodex_photos',ownerId);
       const remotePhotoMap=new Map(remotePhotos.map(p=>[p.id,p]));
       const localPhotoMap=new Map((await getAll('photos')).map(p=>[p.id,p]));
       const incomingPhotos=[];
@@ -130,14 +175,14 @@
       for(const local of localPhotoMap.values()){
         const remote=remotePhotoMap.get(local.id);
         if(remote && timestamp(local.updatedAt||local.createdAt)<=timestamp(remote.updated_at))continue;
-        const path=`${user.id}/${local.id}.jpg`;
+        const path=`${ownerId}/${local.id}.jpg`;
         if(!local.deletedAt && !remote){
           if(!(local.blob instanceof Blob))throw new Error(`Photograph ${local.id} is missing on this device.`);
           const {error}=await cloud.client.storage.from('mycodex-photos').upload(path,local.blob,{contentType:'image/jpeg',upsert:false});
           // A previous partial sync may have uploaded the file before recording metadata.
           if(error && !/already exists|duplicate/i.test(error.message||''))throw error;
         }
-        const payload={id:local.id,user_id:user.id,species_id:local.speciesId,storage_path:remote?.storage_path||path,
+        const payload={id:local.id,user_id:ownerId,species_id:local.speciesId,storage_path:remote?.storage_path||path,
           created_at:local.createdAt||new Date().toISOString(),updated_at:local.updatedAt||local.createdAt||new Date().toISOString(),deleted_at:local.deletedAt||null};
         const {error}=await cloud.client.from('mycodex_photos').upsert(payload,{onConflict:'id'});
         if(error)throw error;
@@ -146,10 +191,10 @@
           if(deleteError)console.warn('Photo delete delayed:',deleteError);
         }
       }
-      localStorage.setItem(cloudOwnerKey,user.id);
+      localStorage.setItem(cloudOwnerKey,ownerId);
       await refresh();
       showCloudStatus('Cloud up to date');
-      cloudMessage(`Synced ${state.finds.size} found species and ${activePhotos().length} photographs. Your iPhone and iPad can share this collection when signed in to the same account.`);
+      cloudMessage(`Synced ${state.finds.size} found species and ${activePhotos().length} photographs. Everyone invited to this collection can access the same discoveries.`);
     })();
     try{await cloudSyncPromise;}
     catch(error){cloudError(error);}
@@ -331,6 +376,38 @@
     });
     $('#cloudLogout').addEventListener('click',async()=>{try{await cloud.signOut();cloudUI();cloudMessage('Signed out. Local discoveries remain on this device.');}catch(error){cloudError(error);}});
     $('#cloudSyncNow').addEventListener('click',()=>syncCloud());
+    $('#shareInviteForm').addEventListener('submit',async event=>{
+      event.preventDefault();
+      const user=cloud?.user;
+      if(!user||cloudOwnerId!==user.id)return;
+      const email=$('#shareEmailInput').value.trim().toLowerCase();
+      if(!email)return;
+      const button=$('#shareInviteButton');
+      button.disabled=true;
+      try{
+        const {error}=await cloud.client.from('mycodex_shares')
+          .insert({owner_user_id:user.id,invited_email:email});
+        if(error && error.code!=='23505')throw error;
+        $('#shareEmailInput').value='';
+        await reloadSharing();
+        $('#shareMessage').textContent='Access enabled for '+email+'. Ask them to sign into MycoDex with this exact email address.';
+      }catch(error){$('#shareMessage').textContent='Could not invite: '+error.message;}
+      finally{button.disabled=false;}
+    });
+    $('#shareInvites').addEventListener('click',async event=>{
+      const button=event.target.closest('[data-share-remove]');
+      if(!button||!cloud?.user||cloudOwnerId!==cloud.user.id)return;
+      const email=button.dataset.shareRemove;
+      if(!confirm('Remove shared collection access for '+email+'?'))return;
+      button.disabled=true;
+      const {error}=await cloud.client.from('mycodex_shares')
+        .delete().eq('owner_user_id',cloud.user.id).eq('invited_email',email);
+      if(error){$('#shareMessage').textContent='Could not remove access: '+error.message;button.disabled=false;return;}
+      await reloadSharing();
+      $('#shareMessage').textContent='Access removed for '+email+'.';
+    });
+    // Poll while in use: one person's changes appear on the other device.
+    setInterval(()=>{if(cloud?.user&&!document.hidden&&navigator.onLine)syncCloud().catch(console.warn);},60000);
     window.addEventListener('online',scheduleCloudSync);
     document.addEventListener('visibilitychange',()=>{if(!document.hidden)scheduleCloudSync();});
 
