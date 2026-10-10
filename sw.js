@@ -1,6 +1,6 @@
 // MycoDex offline shell. Never cache user discoveries or authentication tokens.
-const CACHE='mycodex-shell-v3';
-const SHELL=['./','./index.html','./styles.css?v=3','./cloud-config.js?v=3','./cloud.js?v=3','./app.js?v=4','./manifest.webmanifest','./data/species.json','./assets/icon-180.png','./assets/icon-192.png'];
+const CACHE='mycodex-shell-v4';
+const SHELL=['./','./index.html','./styles.css?v=3','./cloud-config.js?v=3','./cloud.js?v=4','./app.js?v=5','./manifest.webmanifest','./data/species.json','./assets/icon-180.png','./assets/icon-192.png'];
 self.addEventListener('install',event=>event.waitUntil(
   caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting())
 ));
