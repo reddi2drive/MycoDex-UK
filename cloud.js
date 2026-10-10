@@ -9,6 +9,25 @@ window.MycoDexCloud = (() => {
   let initPromise = null;
   let onChange = () => {};
 
+  // Safari occasionally reports transient network failures as "Load failed".
+  // Retry only idempotent requests; do not send duplicate login emails or uploads.
+  const delay=milliseconds=>new Promise(resolve=>setTimeout(resolve,milliseconds));
+  async function resilientFetch(input,options){
+    const method=String(options?.method||(input instanceof Request?input.method:'GET')).toUpperCase();
+    const attempts=(method==='GET'||method==='HEAD')?3:1;
+    let lastError;
+    for(let attempt=0;attempt<attempts;attempt++){
+      try{return await fetch(input,options);}
+      catch(error){
+        lastError=error;
+        const transient=/load failed|failed to fetch|networkerror|network request failed|network connection was lost/i.test(String(error?.message||error));
+        if(!transient||attempt===attempts-1||!navigator.onLine)throw error;
+        await delay(350*(attempt+1));
+      }
+    }
+    throw lastError;
+  }
+
   function loadSDK(){
     if (window.supabase?.createClient) return Promise.resolve();
     return new Promise((resolve,reject)=>{
@@ -26,6 +45,7 @@ window.MycoDexCloud = (() => {
     if (!initPromise) initPromise=(async()=>{
       await loadSDK();
       client=window.supabase.createClient(cfg.url.trim().replace(/\/$/,''),cfg.publishableKey.trim(),{
+        global:{fetch:resilientFetch},
         auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'implicit'}
       });
       client.auth.onAuthStateChange((_event,session)=>{
