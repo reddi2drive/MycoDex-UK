@@ -60,12 +60,35 @@ window.MycoDexCloud = (() => {
     })().catch(e=>{initPromise=null;throw e;});
     return initPromise;
   }
-  async function sendLink(email){
+  // Normal sign-in uses an existing, email-confirmed Supabase Auth account.
+  // Passwords are never stored in app code, local storage or GitHub.
+  async function signInWithPassword(email,password){
     if(!client)throw new Error('Cloud is not ready.');
-    const redirect=window.location.origin+window.location.pathname;
-    const {error}=await client.auth.signInWithOtp({email,options:{emailRedirectTo:redirect}});
+    const {data,error}=await client.auth.signInWithPassword({
+      email:String(email||'').trim(),
+      password
+    });
     if(error)throw error;
+    if(!data?.user)throw new Error('Supabase did not return a signed-in user.');
+    currentUser=data.user;
+    onChange(currentUser);
+    return data.user;
   }
-  async function signOut(){if(!client)return;const {error}=await client.auth.signOut();if(error)throw error;currentUser=null;onChange(null);}
-  return {configured,init,sendLink,signOut,get client(){return client;},get user(){return currentUser;}};
+  // A pre-existing signed-in session can add/change its own password.
+  // Supabase's secure-password-change policy may require reauthentication.
+  async function setAccountPassword(password){
+    if(!client||!currentUser)throw new Error('Sign in first before setting a password.');
+    const {data,error}=await client.auth.updateUser({password});
+    if(error)throw error;
+    return data?.user;
+  }
+  async function signOut(){
+    if(!client)return;
+    const {error}=await client.auth.signOut();
+    if(error)throw error;
+    currentUser=null;
+    onChange(null);
+  }
+  return {configured,init,signInWithPassword,setAccountPassword,signOut,
+    get client(){return client;},get user(){return currentUser;}};
 })();
