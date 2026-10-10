@@ -390,9 +390,42 @@
     $('#catalogueExport').addEventListener('click',exportCatalogue);
     $('#exportButton').addEventListener('click',exportBackup);$('#backupInput').addEventListener('change',e=>{const f=e.target.files[0];if(f)restoreBackup(f);});
     $('#cloudLoginForm').addEventListener('submit',async e=>{
-      e.preventDefault();const btn=$('#cloudSendLink');btn.disabled=true;
-      try{await cloud.sendLink($('#cloudEmailInput').value.trim());cloudMessage('Check your email for the secure sign-in link. Open it on this device.');}
-      catch(error){cloudError(new Error('sending sign-in email: '+String(error?.message||error)));}finally{btn.disabled=false;}
+      e.preventDefault();
+      const btn=$('#cloudSignInButton');
+      const password=$('#cloudPasswordInput');
+      btn.disabled=true;
+      try{
+        await cloud.signInWithPassword($('#cloudEmailInput').value.trim(),password.value);
+        password.value='';
+        cloudMessage('Signed in. Your collection is syncing.');
+        scheduleCloudSync();
+      }catch(error){
+        cloudMessage('Could not sign in: '+String(error?.message||error)+'. Check your email address and MycoDex password.');
+      }finally{
+        password.value='';
+        btn.disabled=false;
+      }
+    });
+    $('#cloudSetPasswordForm').addEventListener('submit',async e=>{
+      e.preventDefault();
+      const first=$('#cloudNewPasswordInput'),second=$('#cloudConfirmPasswordInput');
+      const notice=$('#cloudPasswordMessage');
+      if(first.value!==second.value){
+        notice.textContent='Passwords do not match.';
+        return;
+      }
+      const button=$('#cloudSetPasswordButton');
+      button.disabled=true;
+      try{
+        await cloud.setAccountPassword(first.value);
+        notice.textContent='Password saved. You can now sign in on another device using the same MycoDex account.';
+      }catch(error){
+        notice.textContent='Could not update password: '+String(error?.message||error)+'. Your session may require reauthentication.';
+      }finally{
+        first.value='';
+        second.value='';
+        button.disabled=false;
+      }
     });
     $('#cloudLogout').addEventListener('click',async()=>{try{await cloud.signOut();cloudUI();cloudMessage('Signed out. Local discoveries remain on this device.');}catch(error){cloudError(error);}});
     $('#cloudSyncNow').addEventListener('click',()=>syncCloud());
