@@ -45,3 +45,45 @@
 .photo-viewer-prev{left:0}.photo-viewer-next{right:0}
 .photo-viewer-arrow[hidden]{display:none}
 @media(max-width:690px){.modal-gallery .gallery-open img{height:87px}}
+
+/* Seasonal Explorer: UK habitat and month recommendations */
+.seasonal-explorer{margin:32px 0 38px;padding:30px;border:1px solid #446d4b;border-radius:22px;background:linear-gradient(130deg,#132d22 0%,#0b2019 48%,#0d221a 100%);box-shadow:0 17px 45px #0000001c}
+.seasonal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.seasonal-head h2{font-size:clamp(23px,2.8vw,33px);line-height:1.18;margin:12px 0 8px;letter-spacing:-.8px;color:var(--white)}
+.seasonal-head p{font-size:13px;color:#b6ccba;line-height:1.6;max-width:580px;margin:0}
+.seasonal-badge{padding:8px 11px;border:1px solid #78936b;border-radius:20px;color:var(--mint);letter-spacing:1.3px;font-size:10px;white-space:nowrap}
+.seasonal-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 15px}
+.seasonal-controls label{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:700;color:#c0d6c3}
+.seasonal-controls select{width:100%;min-height:47px;padding:12px 13px;background:#0b1b15;color:var(--white);border:1px solid #4b6a50;border-radius:10px}
+.seasonal-summary{font-size:13px;line-height:1.6;color:#c4d8c7;margin:0 0 12px}
+.seasonal-hints{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:0 0 18px}
+.seasonal-hints-label{font-size:11px;color:var(--muted);margin-right:3px}
+.seasonal-hint{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:50px;border:1px solid #40694b;background:#122f22;color:#e0eddb;font-size:11px;cursor:pointer}
+.seasonal-hint small{font-size:10px;color:var(--mint)}
+.seasonal-hint.active,.seasonal-hint:hover{background:#284b32;border-color:#a8cc87}
+.seasonal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.seasonal-card{text-align:left;display:flex;flex-direction:column;align-items:stretch;gap:7px;min-width:0;min-height:218px;padding:18px;background:#10241a;border:1px solid #35543d;border-radius:14px;color:var(--white);transition:transform .18s,border-color .18s}
+.seasonal-card:hover,.seasonal-card:focus-visible{border-color:#a3cf7e;transform:translateY(-2px)}
+.seasonal-card:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.seasonal-card-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.seasonal-period{color:#b8d79c;font-size:11px;font-weight:700}
+.seasonal-found{color:#e5bd8b;font-size:11px}.seasonal-found.is-found{color:#bce787}
+.seasonal-card strong{font-size:16px;line-height:1.28;margin-top:2px}
+.seasonal-card em{font-size:11px;color:#9ead9b;font-style:italic}
+.seasonal-chips,.entry-guide-chips{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0}
+.seasonal-chips span,.entry-guide-chips span{font-size:10px;color:#cee4b8;border:1px solid #436341;border-radius:7px;padding:5px 7px;background:#203a26}
+.seasonal-where{font-size:12px;line-height:1.5;color:#bac9b8;flex:1}
+.seasonal-open{font-size:11px;color:var(--mint);font-weight:700;margin-top:5px}
+.seasonal-bottom{display:flex;justify-content:center;margin-top:17px}
+.seasonal-bottom button[hidden]{display:none}
+.seasonal-empty{font-size:13px;color:var(--muted);padding:16px 0}
+.seasonal-footnote{border-top:1px solid var(--edge);padding-top:16px;margin:18px 0 0;font-size:11px;color:#9eb5a6;line-height:1.6}
+.seasonal-footnote a{color:var(--mint);text-decoration:underline}
+.entry-habitat-guide{margin:16px 0;background:#172f21;border:1px solid #416948;padding:15px;border-radius:12px}
+.entry-habitat-guide[hidden]{display:none}
+.entry-habitat-guide h3{margin:0 0 12px;color:var(--mint);font-size:14px}
+.entry-guide-season{font-size:12px;color:#d2e4d0;line-height:1.5;margin-bottom:8px}
+.entry-habitat-guide p{font-size:12px;line-height:1.6;color:#d6dfd0;margin:10px 0}
+.entry-habitat-guide small{font-size:10px;color:#a6baa8}
+@media(max-width:950px){.seasonal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:690px){.seasonal-explorer{margin:23px 0 29px;padding:18px;border-radius:15px}.seasonal-head{display:block}.seasonal-badge{display:inline-block;margin-top:10px}.seasonal-controls{grid-template-columns:1fr;gap:10px;margin-top:18px}.seasonal-grid{grid-template-columns:1fr}.seasonal-card{min-height:0;padding:16px}.seasonal-head h2{font-size:25px}.seasonal-hints{gap:6px}}
