@@ -275,10 +275,34 @@
   async function drawGallery(){
     for(const url of state.galleryUrls)URL.revokeObjectURL(url);state.galleryUrls=[];
     const selected=activePhotos().filter(x=>x.speciesId===state.activeId).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
-    $('#photoGallery').innerHTML=selected.map(p=>{
+    $('#photoGallery').innerHTML=selected.map((p,index)=>{
       const url=URL.createObjectURL(p.blob);state.galleryUrls.push(url);
-      return `<div class="gallery-item"><img src="${esc(url)}" alt="Your uploaded mushroom photo"><button type="button" class="gallery-remove" data-photo-remove="${esc(p.id)}" aria-label="Delete this photograph">×</button></div>`;
+      return `<div class="gallery-item"><button type="button" class="gallery-open" data-photo-view="${esc(p.id)}" aria-label="Enlarge photograph ${index+1} of ${selected.length}" title="View full size"><img src="${esc(url)}" alt="Your mushroom photograph ${index+1}"><span class="gallery-zoom" aria-hidden="true">⤢</span></button><button type="button" class="gallery-remove" data-photo-remove="${esc(p.id)}" aria-label="Delete this photograph">×</button></div>`;
     }).join('');
+  }
+  // Reuse the saved Blob URLs already displayed in the gallery. No re-upload or
+  // network request is needed, so opening photographs works when offline.
+  let viewerPhotos=[];
+  let viewerIndex=0;
+  function displayViewerPhoto(index){
+    if(!viewerPhotos.length)return;
+    viewerIndex=(index+viewerPhotos.length)%viewerPhotos.length;
+    const photo=viewerPhotos[viewerIndex];
+    $('#photoViewerImage').src=photo.url;
+    $('#photoViewerImage').alt=photo.alt;
+    $('#photoViewerCounter').textContent=`Photograph ${viewerIndex+1} of ${viewerPhotos.length}`;
+    $('#photoViewerPrev').hidden=viewerPhotos.length<2;
+    $('#photoViewerNext').hidden=viewerPhotos.length<2;
+  }
+  function openPhotoViewer(id){
+    viewerPhotos=[...$('#photoGallery').querySelectorAll('[data-photo-view]')].map(button=>{
+      const img=button.querySelector('img');
+      return {id:button.dataset.photoView,url:img.src,alt:img.alt};
+    });
+    const index=viewerPhotos.findIndex(p=>p.id===id);
+    if(index<0)return;
+    displayViewerPhoto(index);
+    $('#photoViewerDialog').showModal();
   }
   function compressImage(file){return new Promise((resolve,reject)=>{
     if(!file.type.startsWith('image/')&&!/\.(heic|heif)$/i.test(file.name)){reject(new Error('Please choose an image file.'));return;}
@@ -377,7 +401,29 @@
   }
   function setup(){
     $('#speciesGrid').addEventListener('click',e=>{const card=e.target.closest('[data-entry]');if(card)openEntry(card.dataset.entry);});
-    $('#photoGallery').addEventListener('click',async e=>{const button=e.target.closest('[data-photo-remove]');if(!button)return;if(!confirm('Delete this photograph?'))return;const old=state.photos.find(p=>p.id===button.dataset.photoRemove);if(!old)return;await put('photos',{...old,updatedAt:new Date().toISOString(),deletedAt:new Date().toISOString()});await refresh();await drawGallery();scheduleCloudSync();toast('Photograph deleted.');});
+    $('#photoGallery').addEventListener('click',async e=>{
+      const removeButton=e.target.closest('[data-photo-remove]');
+      if(removeButton){
+        if(!confirm('Delete this photograph?'))return;
+        const old=state.photos.find(p=>p.id===removeButton.dataset.photoRemove);
+        if(!old)return;
+        await put('photos',{...old,updatedAt:new Date().toISOString(),deletedAt:new Date().toISOString()});
+        await refresh();await drawGallery();scheduleCloudSync();toast('Photograph deleted.');
+        return;
+      }
+      const viewButton=e.target.closest('[data-photo-view]');
+      if(viewButton)openPhotoViewer(viewButton.dataset.photoView);
+    });
+    $('#photoViewerPrev').addEventListener('click',()=>displayViewerPhoto(viewerIndex-1));
+    $('#photoViewerNext').addEventListener('click',()=>displayViewerPhoto(viewerIndex+1));
+    $('#photoViewerDialog').addEventListener('keydown',e=>{
+      if(e.key==='ArrowLeft'){e.preventDefault();displayViewerPhoto(viewerIndex-1);}
+      if(e.key==='ArrowRight'){e.preventDefault();displayViewerPhoto(viewerIndex+1);}
+    });
+    $('#photoViewerDialog').addEventListener('close',()=>{
+      $('#photoViewerImage').removeAttribute('src');
+      viewerPhotos=[];
+    });
     $('#entryForm').addEventListener('submit',saveEntry);$('#saveEntryButton').addEventListener('click',saveEntry);$('#unmarkButton').addEventListener('click',unmark);
     $('#photoInput').addEventListener('change',()=>{$('#selectedPhotos').textContent=$('#photoInput').files.length?`${$('#photoInput').files.length} photograph(s) ready to add when you save.`:'';});
     $('#settingsButton').addEventListener('click',()=>$('#settingsDialog').showModal());
