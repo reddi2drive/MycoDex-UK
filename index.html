@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="assets/icon-180.png">
   <link rel="icon" type="image/png" href="assets/icon-192.png">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
   <title>MycoDex UK · Your mushroom collection</title>
 </head>
 <body>
@@ -38,6 +38,26 @@
 
       <div class="progress-block"><div><span>COLLECTION PROGRESS</span><b id="progressLabel">0 / 0 SPECIES DISCOVERED</b></div><div class="progress-track"><div id="progressFill"></div></div></div>
 
+      <section id="seasonalExplorer" class="seasonal-explorer" aria-labelledby="seasonalTitle">
+        <div class="seasonal-head">
+          <div>
+            <div class="eyebrow">SEASONAL FIELD GUIDE · UK</div>
+            <h2 id="seasonalTitle">What to look for this month</h2>
+            <p>Explore mushrooms likely to be visible during a typical UK season, and where to look for them.</p>
+          </div>
+          <span class="seasonal-badge">FIELD GUIDE</span>
+        </div>
+        <div class="seasonal-controls">
+          <label for="seasonMonth">Month<select id="seasonMonth"><option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option></select></label>
+          <label for="seasonHabitat">Where are you exploring?<select id="seasonHabitat"><option value="all">All environments</option></select></label>
+        </div>
+        <p id="seasonalSummary" class="seasonal-summary" aria-live="polite">Loading seasonal field guide…</p>
+        <div class="seasonal-hints" id="seasonalHabitatHints" aria-label="Explore habitats"></div>
+        <div class="seasonal-grid" id="seasonalGrid"></div>
+        <p class="seasonal-empty" id="seasonalEmpty" hidden>No species in this part of the guide for that combination. Try another month or habitat.</p>
+        <div class="seasonal-bottom"><button type="button" class="secondary-button" id="seasonalMore" hidden>Show more suggestions ↓</button></div>
+        <p class="seasonal-footnote">These are approximate UK viewing periods, not live sightings or guarantees. Weather, region and habitat all affect when fungi appear. Observe and photograph; do not use this guide to decide what is safe to eat. <a href="https://www.first-nature.com/fungi/" target="_blank" rel="noopener noreferrer">Fungi field guide ↗</a></p>
+      </section>
       <section id="collection" class="collection">
         <div class="section-head"><div><div class="eyebrow heading-eyebrow">THE COLLECTION</div><h2>Your MycoDex</h2><p>Tap any entry to record a find, add photographs and keep field notes.</p></div><span class="catalogue-badge" id="catalogueBadge">STARTER CATALOGUE</span></div>
         <div class="toolbar">
@@ -58,6 +78,7 @@
     <form id="entryForm" class="entry-form">
       <div class="modal-head"><div><span class="eyebrow">FIELD ENTRY</span><h2 id="entryTitle">Mushroom</h2><p id="entryScientific"></p></div><button type="button" class="icon-close" data-close="entryDialog" aria-label="Close">✕</button></div>
       <div class="modal-content"><div class="taxon-pill" id="entryFamily"></div>
+        <section id="entryHabitatGuide" class="entry-habitat-guide" aria-label="Season and habitat information" hidden></section>
         <div class="form-grid"><label>Date found <input type="date" id="entryDate"></label><label>Location or place <input type="text" id="entryLocation" placeholder="e.g. Arrow Valley Lake" maxlength="160"></label></div>
         <label class="full-label">Field notes <textarea id="entryNotes" rows="3" placeholder="Habitat, tree species, colours, weather, anything you noticed…" maxlength="3000"></textarea></label>
         <div class="upload-block"><label for="photoInput" class="upload-target"><span>＋</span><strong>Add your mushroom photographs</strong><small>Choose from your camera or photo library · JPEG / PNG / HEIC*</small></label><input id="photoInput" type="file" accept="image/*" multiple><div id="selectedPhotos" class="selected-photos"></div><small class="file-note">*HEIC support depends on your browser. Photos are reduced in size before saving.</small></div>
@@ -128,6 +149,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script defer src="cloud-config.js?v=3"></script>
   <script defer src="cloud.js?v=5"></script>
-  <script defer src="app.js?v=6"></script>
+  <script defer src="app.js?v=7"></script>
 </body>
 </html>
