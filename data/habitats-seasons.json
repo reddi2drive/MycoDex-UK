@@ -1,0 +1,1196 @@
+{
+  "version": 1,
+  "region": "United Kingdom",
+  "description": "Approximate months when fruiting bodies or lasting brackets may be visible in Britain. Dates are broad field-guide guidance, not current local occurrence forecasts.",
+  "habitats": {
+    "B": "Broadleaf woodland",
+    "C": "Conifer woodland",
+    "G": "Grassland & meadows",
+    "W": "Deadwood & stumps",
+    "P": "Parks & gardens",
+    "H": "Hedges & woodland edges",
+    "E": "Heathland",
+    "M": "Damp & mossy places"
+  },
+  "sources": [
+    {
+      "title": "Woodland Trust — UK mushrooms",
+      "url": "https://www.woodlandtrust.org.uk/blog/2025/11/types-of-mushroom/"
+    },
+    {
+      "title": "Woodland Trust — autumn mushroom habitats",
+      "url": "https://www.woodlandtrust.org.uk/blog/2026/10/foraging-in-autumn-wild-mushrooms/"
+    },
+    {
+      "title": "First Nature — British fungi field guide",
+      "url": "https://www.first-nature.com/fungi/"
+    },
+    {
+      "title": "Woodland Trust — fungi & lichens",
+      "url": "https://www.woodlandtrust.org.uk/trees-woods-and-wildlife/fungi-and-lichens/"
+    }
+  ],
+  "species": {
+    "agaricus-arvensis": {
+      "months": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "G",
+        "P",
+        "H"
+      ],
+      "where": "Unimproved pasture, meadows and grassy woodland edges, often in rings."
+    },
+    "agaricus-campestris": {
+      "months": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "G",
+        "P"
+      ],
+      "where": "Short grass in pasture, meadows and older lawns, sometimes in fairy rings."
+    },
+    "agaricus-xanthodermus": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "P",
+        "H",
+        "G"
+      ],
+      "where": "Gardens, parkland and woodland edges, including disturbed grassy ground."
+    },
+    "aleuria-aurantia": {
+      "months": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "H",
+        "M",
+        "P"
+      ],
+      "where": "Bare, compacted soil beside woodland tracks, paths and damp disturbed ground."
+    },
+    "amanita-citrina": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "C"
+      ],
+      "where": "Leaf litter and soil beneath beech, oak or conifer trees."
+    },
+    "amanita-fulva": {
+      "months": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "B",
+        "C",
+        "M"
+      ],
+      "where": "Soil beneath birch and other trees, often among moss."
+    },
+    "amanita-muscaria": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "C",
+        "E"
+      ],
+      "where": "On the ground beneath birch, pine or spruce, including heathland with trees."
+    },
+    "amanita-pantherina": {
+      "months": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "B",
+        "C"
+      ],
+      "where": "Soil beneath broadleaf trees and conifers; uncommon in many areas."
+    },
+    "amanita-phalloides": {
+      "months": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "P"
+      ],
+      "where": "Ground near oak, beech and other mature broadleaf trees, including parkland."
+    },
+    "amanita-rubescens": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "C"
+      ],
+      "where": "Leaf litter beneath beech, oak and conifers in mixed woodland."
+    },
+    "amanita-virosa": {
+      "months": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "B",
+        "C",
+        "M"
+      ],
+      "where": "Soil in damp woodland, often alongside birch or spruce; localised."
+    },
+    "apioperdon-pyriforme": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "W",
+        "B"
+      ],
+      "where": "Dense clusters on rotting logs, buried stumps and decaying wood."
+    },
+    "armillaria-mellea": {
+      "months": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "W",
+        "B",
+        "P"
+      ],
+      "where": "Around the bases and roots of broadleaf trees, stumps and woody debris."
+    },
+    "astraeus-hygrometricus": {
+      "months": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "E",
+        "B",
+        "C"
+      ],
+      "where": "Dry, sandy or acidic ground in open woodland and heathland."
+    },
+    "auricularia-auricula-judae": {
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "W",
+        "M",
+        "H"
+      ],
+      "where": "Dead or dying elder branches, occasionally other broadleaf wood, especially after rain."
+    },
+    "boletus-edulis": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "C"
+      ],
+      "where": "Soil near mature oak, beech, birch and conifer trees."
+    },
+    "calvatia-gigantea": {
+      "months": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "G",
+        "P",
+        "H"
+      ],
+      "where": "Nutrient-rich grassland, pastures, field edges and rough lawns."
+    },
+    "cerioporus-squamosus": {
+      "months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "B",
+        "W",
+        "P"
+      ],
+      "where": "Large brackets on broadleaf tree trunks, fallen logs and cut stumps."
+    },
+    "chalciporus-piperatus": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "C",
+        "B"
+      ],
+      "where": "Ground in conifer woodland, especially near pine and other tree roots."
+    },
+    "chlorociboria-aeruginascens": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "W",
+        "M",
+        "B"
+      ],
+      "where": "Bark-free rotting hardwood; look for blue-green stained timber and tiny cups."
+    },
+    "chlorophyllum-rhacodes": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "B",
+        "H",
+        "P"
+      ],
+      "where": "Leaf litter, woodland margins, shrubs and shaded garden edges."
+    },
+    "clathrus-archeri": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "B",
+        "H",
+        "P"
+      ],
+      "where": "Mulch, leaf litter and rich soil in woodland or gardens; scarce and localised."
+    },
+    "clitocybe-nebularis": {
+      "months": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "B",
+        "C",
+        "H"
+      ],
+      "where": "Leaf litter in broadleaf and conifer woodland, often growing in arcs."
+    },
+    "coprinellus-disseminatus": {
+      "months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "W",
+        "P",
+        "B"
+      ],
+      "where": "Very large groups around rotting stumps and buried wood."
+    },
+    "coprinellus-micaceus": {
+      "months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "W",
+        "P",
+        "B"
+      ],
+      "where": "Clusters at the base of trees, on stumps and buried wood in parks or woods."
+    },
+    "coprinopsis-atramentaria": {
+      "months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "W",
+        "P",
+        "G"
+      ],
+      "where": "Clusters by tree bases, buried wood and disturbed grassy verges."
+    },
+    "coprinopsis-picacea": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B"
+      ],
+      "where": "Leaf litter in mature, especially beech, woodland."
+    },
+    "coprinus-comatus": {
+      "months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "G",
+        "P"
+      ],
+      "where": "Lawns, verges, parkland and open disturbed grass."
+    },
+    "cortinarius-violaceus": {
+      "months": [
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "B",
+        "C"
+      ],
+      "where": "Mossy soil in established woodland, often under birch, beech or conifers; uncommon."
+    },
+    "cuphophyllus-pratensis": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "G"
+      ],
+      "where": "Old, low-nutrient pasture and unimproved grassland."
+    },
+    "exidia-glandulosa": {
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "W",
+        "M",
+        "B"
+      ],
+      "where": "Dead hardwood branches, especially oak and hazel, conspicuous in wet weather."
+    },
+    "fistulina-hepatica": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "W",
+        "P"
+      ],
+      "where": "Low on oak or sweet chestnut trunks and old stumps."
+    },
+    "flammulina-velutipes": {
+      "months": [
+        11,
+        12,
+        1,
+        2,
+        3
+      ],
+      "habitats": [
+        "W",
+        "H",
+        "P"
+      ],
+      "where": "Clusters on dead or dying broadleaf trunks and stumps, often in colder weather."
+    },
+    "fomes-fomentarius": {
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "W",
+        "B"
+      ],
+      "where": "Persistent hoof-shaped brackets on birch and beech trunks and standing deadwood."
+    },
+    "fomitopsis-betulina": {
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "W",
+        "B"
+      ],
+      "where": "Brackets on dead, dying or fallen birch trunks; older brackets can remain visible."
+    },
+    "ganoderma-applanatum": {
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "W",
+        "B",
+        "P"
+      ],
+      "where": "Large, persistent brackets low on broadleaf trunks and stumps."
+    },
+    "geastrum-triplex": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "H"
+      ],
+      "where": "Leaf litter beneath broadleaf trees or scrub, on woodland paths and edges."
+    },
+    "helvella-lacunosa": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "H"
+      ],
+      "where": "Damp woodland soil and mossy banks alongside paths."
+    },
+    "hericium-erinaceus": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "W"
+      ],
+      "where": "High or low on veteran broadleaf trees, particularly old beech and oak; very rare and protected."
+    },
+    "hydnum-repandum": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "C"
+      ],
+      "where": "Mossy soil and leaf litter under broadleaf or conifer trees."
+    },
+    "hygrocybe-chlorophana": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "G"
+      ],
+      "where": "Old, undisturbed, low-fertility grassland, sometimes churchyards."
+    },
+    "hygrocybe-coccinea": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "G"
+      ],
+      "where": "Unimproved, mossy short turf, old meadows and churchyards."
+    },
+    "hygrocybe-conica": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "G",
+        "P"
+      ],
+      "where": "Short grass, unimproved lawns, heathy grassland and grassy banks."
+    },
+    "hypholoma-fasciculare": {
+      "months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "W",
+        "B",
+        "C"
+      ],
+      "where": "Dense yellow clusters on rotting logs, stumps and buried dead wood."
+    },
+    "imleria-badia": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "C",
+        "B"
+      ],
+      "where": "Mossy woodland ground, especially near pine and spruce; sometimes by old wood."
+    },
+    "kuehneromyces-mutabilis": {
+      "months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "W",
+        "B"
+      ],
+      "where": "Clustered on rotting broadleaf logs, particularly beech."
+    },
+    "laccaria-amethystina": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "C"
+      ],
+      "where": "Leaf litter beneath beech and other trees in damp woodland."
+    },
+    "laccaria-laccata": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "C",
+        "E"
+      ],
+      "where": "Open woodland soil, grassy rides and tree-lined heathland."
+    },
+    "lactarius-deliciosus": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "C"
+      ],
+      "where": "On the soil close to pine trees in pine woods or mixed woodland."
+    },
+    "lactarius-torminosus": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "E"
+      ],
+      "where": "Ground beneath birch, especially mossy or heathy sites."
+    },
+    "lactarius-turpis": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "M"
+      ],
+      "where": "Damp acidic woodland ground beneath birch."
+    },
+    "laetiporus-sulphureus": {
+      "months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "B",
+        "W",
+        "P"
+      ],
+      "where": "Bright overlapping brackets on living or dead oak and other broadleaf trunks."
+    },
+    "leccinum-scabrum": {
+      "months": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "E"
+      ],
+      "where": "Ground close to birch, on woodland margins and heath with birch."
+    },
+    "leccinum-versipelle": {
+      "months": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "E"
+      ],
+      "where": "Soil under birch, often in mossy woodland or heathland."
+    },
+    "lepista-nuda": {
+      "months": [
+        9,
+        10,
+        11,
+        12,
+        1
+      ],
+      "habitats": [
+        "B",
+        "H",
+        "P"
+      ],
+      "where": "Leaf litter, compost-rich soil and woodland edges, sometimes gardens."
+    },
+    "lycoperdon-perlatum": {
+      "months": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "C",
+        "G"
+      ],
+      "where": "Woodland leaf litter and grassy clearings, sometimes on heath."
+    },
+    "macrolepiota-procera": {
+      "months": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "G",
+        "H",
+        "B"
+      ],
+      "where": "Rough grassland, open woodland, field margins and grassy rides."
+    },
+    "morchella-esculenta": {
+      "months": [
+        3,
+        4,
+        5
+      ],
+      "habitats": [
+        "B",
+        "H"
+      ],
+      "where": "Well-drained soil beneath trees, in copses, woodland and hedgerows; uncommon."
+    },
+    "mucidula-mucida": {
+      "months": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "W",
+        "M"
+      ],
+      "where": "Pale clusters growing from fallen or standing beech wood, often in damp woods."
+    },
+    "mutinus-caninus": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "B",
+        "H",
+        "M"
+      ],
+      "where": "Damp leafy woodland, rich soil, woodchip and shaded hedgerows."
+    },
+    "mycena-galericulata": {
+      "months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "W",
+        "B"
+      ],
+      "where": "Groups on fallen broadleaf logs and stumps in woodland."
+    },
+    "mycena-haematopus": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "W",
+        "B"
+      ],
+      "where": "Clusters on rotting hardwood, especially fallen beech branches and logs."
+    },
+    "neoboletus-luridiformis": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "B",
+        "C"
+      ],
+      "where": "Acidic soil near oak, beech and conifers in woodland."
+    },
+    "phallus-impudicus": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "C",
+        "H"
+      ],
+      "where": "Leaf litter and rich soil in woods, hedges and scrub."
+    },
+    "pholiota-squarrosa": {
+      "months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "W",
+        "B",
+        "P"
+      ],
+      "where": "Dense scaly clusters at tree bases and around old stumps."
+    },
+    "pleurotus-ostreatus": {
+      "months": [
+        10,
+        11,
+        12,
+        1,
+        2,
+        3
+      ],
+      "habitats": [
+        "W",
+        "B"
+      ],
+      "where": "Shelves on dead or dying broadleaf trunks, especially beech; often after cool rain."
+    },
+    "russula-cyanoxantha": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B"
+      ],
+      "where": "Leaf litter and soil in oak and beech woodland."
+    },
+    "russula-emetica": {
+      "months": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "C",
+        "M"
+      ],
+      "where": "Mossy, damp acidic ground in conifer woodland and boggy edges."
+    },
+    "russula-ochroleuca": {
+      "months": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "C"
+      ],
+      "where": "Acidic woodland soil beneath conifers, oak or beech."
+    },
+    "sarcoscypha-austriaca": {
+      "months": [
+        12,
+        1,
+        2,
+        3,
+        4
+      ],
+      "habitats": [
+        "W",
+        "M",
+        "B"
+      ],
+      "where": "Decaying sticks in damp leaf litter or moss, particularly shaded streamside woods."
+    },
+    "scleroderma-citrinum": {
+      "months": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "habitats": [
+        "B",
+        "C",
+        "E"
+      ],
+      "where": "Dry sandy or acidic soil under trees, on paths and heathy ground."
+    },
+    "suillellus-luridus": {
+      "months": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "habitats": [
+        "B",
+        "P"
+      ],
+      "where": "Soil beneath mature broadleaf trees, often on calcareous ground."
+    },
+    "trametes-versicolor": {
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "W",
+        "B"
+      ],
+      "where": "Layered, persistent brackets on dead broadleaf logs, stumps and branches."
+    },
+    "tremella-mesenterica": {
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "W",
+        "M"
+      ],
+      "where": "Yellow jelly-like folds on dead broadleaf twigs; most visible after wet weather."
+    },
+    "xylaria-hypoxylon": {
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "W",
+        "B",
+        "P"
+      ],
+      "where": "Small black-and-white antler shapes on rotting hardwood stumps and logs."
+    },
+    "xylaria-polymorpha": {
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "habitats": [
+        "W",
+        "B"
+      ],
+      "where": "Dark club-shaped growths at the base of broadleaf stumps, often beech."
+    }
+  }
+}
