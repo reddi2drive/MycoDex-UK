@@ -5,7 +5,7 @@
   const DATABASE = 'mycodex-uk';
   const COLLECTION_VERSION = 1;
   const PAGE_SIZE = 60;
-  const state = {species:[], finds:new Map(), photos:[], activeId:null, limit:PAGE_SIZE, galleryUrls:[], coverUrls:[], db:null};
+  const state = {species:[], finds:new Map(), photos:[], activeId:null, limit:PAGE_SIZE, galleryUrls:[], coverUrls:[], db:null, seasonalGuide:null, seasonalShowAll:false};
   const esc = (value) => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const scientificId = (name) => String(name||'').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   const toast = (message) => { const el=$('#toast');el.textContent=message;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),3200); };
@@ -234,6 +234,90 @@
     catch(error){cloudError(new Error('connecting or restoring sign-in: '+String(error?.message||error)));}
   }
 
+
+  const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const SEASONAL_PAGE_SIZE=9;
+  const seasonalLabel = months => {
+    if(!Array.isArray(months)||!months.length)return 'Season varies';
+    if(months.length===12)return 'Visible year-round';
+    return MONTH_NAMES[months[0]-1].slice(0,3)+'–'+MONTH_NAMES[months[months.length-1]-1].slice(0,3);
+  };
+  function renderEntrySeasonalGuide(id){
+    const panel=$('#entryHabitatGuide');
+    const guide=state.seasonalGuide;
+    const profile=guide?.species?.[id];
+    panel.hidden=!profile;
+    if(!profile){panel.innerHTML='';return;}
+    const labels=profile.habitats.map(key=>guide.habitats[key]).filter(Boolean);
+    panel.innerHTML='<h3>When &amp; where to look</h3>'+
+      '<div class="entry-guide-season">▦ Typical UK season: <strong>'+esc(seasonalLabel(profile.months))+'</strong></div>'+
+      '<div class="entry-guide-chips">'+labels.map(label=>'<span>'+esc(label)+'</span>').join('')+'</div>'+
+      '<p>'+esc(profile.where)+'</p>'+
+      '<small>Approximate UK guide only; local weather and conditions vary.</small>';
+  }
+  function renderSeasonal(){
+    const guide=state.seasonalGuide;
+    if(!guide)return;
+    const month=Number($('#seasonMonth').value)||new Date().getMonth()+1;
+    const habitat=$('#seasonHabitat').value;
+    const monthly=state.species.map(s=>({species:s,profile:guide.species[s.id]}))
+      .filter(row=>row.profile && row.profile.months.includes(month));
+    const habitatCounts={};
+    for(const row of monthly)for(const key of row.profile.habitats)habitatCounts[key]=(habitatCounts[key]||0)+1;
+    const hints=Object.entries(habitatCounts).sort((a,b)=>b[1]-a[1]).slice(0,4);
+    $('#seasonalHabitatHints').innerHTML=hints.length?
+      '<span class="seasonal-hints-label">Habitats represented:</span>'+hints.map(([key,count])=>
+        '<button type="button" class="seasonal-hint '+(habitat===key?'active':'')+'" data-season-habitat="'+esc(key)+'">'+esc(guide.habitats[key])+' <small>'+count+'</small></button>'
+      ).join(''):'';
+    const matches=monthly.filter(row=>habitat==='all'||row.profile.habitats.includes(habitat));
+    // Uncollected and broadly encountered species first; rarer sightings remain browseable.
+    matches.sort((a,b)=>{
+      const foundA=state.finds.has(a.species.id)?1:0,foundB=state.finds.has(b.species.id)?1:0;
+      const rareA=/rare|scarce|uncommon|localised|protected/i.test(a.profile.where)?1:0;
+      const rareB=/rare|scarce|uncommon|localised|protected/i.test(b.profile.where)?1:0;
+      return foundA-foundB || rareA-rareB ||
+        a.profile.months.length-b.profile.months.length ||
+        a.species.commonName.localeCompare(b.species.commonName);
+    });
+    const limit=state.seasonalShowAll?matches.length:SEASONAL_PAGE_SIZE;
+    $('#seasonalGrid').innerHTML=matches.slice(0,limit).map(({species:s,profile:p})=>{
+      const isFound=state.finds.has(s.id);
+      const chips=p.habitats.slice(0,3).map(key=>'<span>'+esc(guide.habitats[key]||key)+'</span>').join('');
+      return '<button type="button" class="seasonal-card" data-season-entry="'+esc(s.id)+'" aria-label="'+esc(s.commonName)+', view field entry">'+
+        '<span class="seasonal-card-top"><span class="seasonal-period">'+esc(seasonalLabel(p.months))+'</span>'+
+        '<span class="seasonal-found '+(isFound?'is-found':'')+'">'+(isFound?'✓ Collected':'○ To discover')+'</span></span>'+
+        '<strong>'+esc(s.commonName)+'</strong><em>'+esc(s.scientificName)+'</em>'+
+        '<span class="seasonal-chips">'+chips+'</span>'+
+        '<span class="seasonal-where">'+esc(p.where)+'</span>'+
+        '<span class="seasonal-open">Open field entry →</span></button>';
+    }).join('');
+    $('#seasonalEmpty').hidden=matches.length!==0;
+    const matched=matches.length;
+    const suffix=habitat==='all'?'': ' in '+(guide.habitats[habitat]||'the selected habitat').toLowerCase();
+    $('#seasonalSummary').textContent=MONTH_NAMES[month-1]+': '+matched+' of your '+state.species.length+
+      ' catalogue species have this month in their typical UK viewing window'+suffix+'.'+
+      (matched?' Tap a card to see where to look.':'');
+    const more=$('#seasonalMore');
+    more.hidden=matched<=SEASONAL_PAGE_SIZE;
+    more.textContent=state.seasonalShowAll?'Show fewer suggestions ↑':'Show all '+matched+' suggestions ↓';
+  }
+  async function loadSeasonalGuide(){
+    try{
+      const response=await fetch('./data/habitats-seasons.json',{cache:'no-cache'});
+      if(!response.ok)throw new Error('Seasonal metadata could not be loaded');
+      const guide=await response.json();
+      if(!guide||!guide.species||!guide.habitats)throw new Error('Seasonal metadata has an invalid format');
+      state.seasonalGuide=guide;
+      $('#seasonMonth').value=String(new Date().getMonth()+1);
+      $('#seasonHabitat').innerHTML='<option value="all">All environments</option>'+
+        Object.entries(guide.habitats).map(([key,label])=>'<option value="'+esc(key)+'">'+esc(label)+'</option>').join('');
+    }catch(error){
+      console.warn('MycoDex seasonal guide unavailable:',error);
+      $('#seasonalSummary').textContent='Seasonal suggestions could not be loaded. Your mushroom collection still works normally.';
+      $('#seasonalHabitatHints').textContent='';
+      $('#seasonalMore').hidden=true;
+    }
+  }
   function filteredSpecies(){
     const query=$('#searchInput').value.toLowerCase().trim();const group=$('#groupFilter').value;const filter=$('#statusFilter').value;
     const entries=state.species.filter(s=>{
@@ -263,11 +347,13 @@
     $('#resultsCount').textContent=`Showing ${shown.length.toLocaleString('en-GB')} of ${entries.length.toLocaleString('en-GB')} matching species`;
     $('#loadMore').hidden=entries.length<=shown.length;
     $('#emptyState').hidden=entries.length!==0;
+    renderSeasonal();
   }
   function refreshGroups(){const s=$('#groupFilter');const previous=s.value;const groups=[...new Set(state.species.map(x=>x.group))].sort();s.innerHTML='<option value="all">All groups</option>'+groups.map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('');s.value=groups.includes(previous)?previous:'all';}
   async function openEntry(id){
     const entry=state.species.find(x=>x.id===id);if(!entry)return;
     state.activeId=id;$('#entryTitle').textContent=entry.commonName;$('#entryScientific').textContent=entry.scientificName;$('#entryFamily').textContent=`${entry.group} · ${entry.family}`;
+    renderEntrySeasonalGuide(id);
     const find=state.finds.get(id);$('#entryDate').value=find?.date||today();$('#entryLocation').value=find?.location||'';$('#entryNotes').value=find?.notes||'';
     $('#photoInput').value='';$('#selectedPhotos').textContent='';$('#unmarkButton').hidden=!find;$('#saveEntryButton').textContent=find?'✓ Update field entry':'✓ Save as found';
     await drawGallery();$('#entryDialog').showModal();
@@ -401,6 +487,11 @@
   }
   function setup(){
     $('#speciesGrid').addEventListener('click',e=>{const card=e.target.closest('[data-entry]');if(card)openEntry(card.dataset.entry);});
+    $('#seasonalGrid').addEventListener('click',e=>{const card=e.target.closest('[data-season-entry]');if(card)openEntry(card.dataset.seasonEntry);});
+    $('#seasonMonth').addEventListener('change',()=>{state.seasonalShowAll=false;renderSeasonal();});
+    $('#seasonHabitat').addEventListener('change',()=>{state.seasonalShowAll=false;renderSeasonal();});
+    $('#seasonalHabitatHints').addEventListener('click',e=>{const button=e.target.closest('[data-season-habitat]');if(!button)return;$('#seasonHabitat').value=button.dataset.seasonHabitat;state.seasonalShowAll=false;renderSeasonal();});
+    $('#seasonalMore').addEventListener('click',()=>{state.seasonalShowAll=!state.seasonalShowAll;renderSeasonal();});
     $('#photoGallery').addEventListener('click',async e=>{
       const removeButton=e.target.closest('[data-photo-remove]');
       if(removeButton){
@@ -512,7 +603,7 @@
 
   }
   async function init(){try{
-    if(!window.indexedDB)throw new Error('IndexedDB is not available.');setup();state.db=await openDatabase();await loadSpecies();await refresh();initCloud();
+    if(!window.indexedDB)throw new Error('IndexedDB is not available.');setup();state.db=await openDatabase();await loadSpecies();await loadSeasonalGuide();await refresh();initCloud();
     if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('./sw.js').catch(e=>console.warn('Offline mode not enabled',e));
   }catch(error){console.error(error);$('#resultsCount').textContent='App could not start: '+error.message;toast('App could not start. Open it through GitHub Pages (HTTPS), not as a local file.');}}
   init();
