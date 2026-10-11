@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="assets/icon-180.png">
   <link rel="icon" type="image/png" href="assets/icon-192.png">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
   <title>MycoDex UK · Your mushroom collection</title>
 </head>
 <body>
@@ -68,6 +68,19 @@
     </form>
   </dialog>
 
+  <!-- Full-screen viewer for saved mushroom photographs -->
+  <dialog id="photoViewerDialog" class="photo-viewer-dialog" aria-label="Enlarged mushroom photograph">
+    <div class="photo-viewer-top">
+      <span id="photoViewerCounter" aria-live="polite">Photograph 1 of 1</span>
+      <button type="button" class="photo-viewer-close" data-close="photoViewerDialog" aria-label="Close enlarged photograph">✕</button>
+    </div>
+    <div class="photo-viewer-stage">
+      <button type="button" class="photo-viewer-arrow photo-viewer-prev" id="photoViewerPrev" aria-label="Previous photograph" hidden>‹</button>
+      <img id="photoViewerImage" alt="Enlarged mushroom photograph">
+      <button type="button" class="photo-viewer-arrow photo-viewer-next" id="photoViewerNext" aria-label="Next photograph" hidden>›</button>
+    </div>
+  </dialog>
+
   <dialog id="settingsDialog" class="settings-dialog">
     <div class="modal-head"><div><span class="eyebrow">COLLECTION TOOLS</span><h2>Data &amp; backup</h2><p>Build your species list and protect your sightings.</p></div><button type="button" class="icon-close" data-close="settingsDialog" aria-label="Close">✕</button></div>
     <div class="settings-section cloud-settings">
@@ -115,6 +128,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script defer src="cloud-config.js?v=3"></script>
   <script defer src="cloud.js?v=5"></script>
-  <script defer src="app.js?v=5"></script>
+  <script defer src="app.js?v=6"></script>
 </body>
 </html>
